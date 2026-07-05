@@ -1,0 +1,22 @@
+.venv/
+platform/node_modules/
+platform/dist/
+*.duckdb
+~$*.docx
+*.log
+logs/
+
+# pip 产物
+*.egg-info/
+__pycache__/
+
+# 输出产物
+output/bi/*.html
+
+# 凭证 & 环境
+profiles.yml
+.env
+*.bak
+
+# 用户项目（示例）
+projects/

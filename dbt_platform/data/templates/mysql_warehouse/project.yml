@@ -1,0 +1,37 @@
+# MySQL → StarRocks 项目模板
+project:
+  name: "My Data Warehouse"
+  description: ""
+  version: "0.1.0"
+
+source:
+  adapter: mysql
+
+warehouse:
+  primary:
+    adapter: starrocks
+    schema: dw
+  output:
+    adapter: mysql
+    schema: ads
+
+layers:
+  - name: ODS
+    code: ods
+    schema: ods
+    read_only: true
+  - name: DWD
+    code: dwd
+    schema: dw
+    materialized: table
+  - name: DWS
+    code: dws
+    schema: dw
+    materialized: table
+  - name: ADS
+    code: ads
+    schema: ads
+    materialized: table
+
+domains: []
+scenarios: []

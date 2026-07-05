@@ -1,0 +1,27 @@
+name: '{{ PROJECT_NAME }}'
+version: '1.0.0'
+config-version: 2
+
+profile: '{{ PROJECT_NAME }}'
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+seeds:
+  '{{ PROJECT_NAME }}':
+    +schema: ods
+
+models:
+  '{{ PROJECT_NAME }}':
+    dwd:
+      +schema: dw
+      +materialized: table
+    dws:
+      +schema: dw
+      +materialized: table
+    ads:
+      +schema: ads
+      +materialized: table

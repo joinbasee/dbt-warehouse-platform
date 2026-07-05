@@ -1,0 +1,24 @@
+name: 'my_warehouse'
+version: '1.0.0'
+config-version: 2
+
+profile: 'my_warehouse'
+
+model-paths: ["models"]
+macro-paths: ["macros"]
+test-paths: ["tests"]
+
+models:
+  my_warehouse:
+    dwd:
+      +schema: dw
+      +materialized: table
+    dws:
+      +schema: dw
+      +materialized: table
+    dim:
+      +schema: dim
+      +materialized: table
+    ads:
+      +schema: ads
+      +materialized: table

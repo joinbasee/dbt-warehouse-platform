@@ -1,0 +1,28 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dbt-platform"
+version = "0.1.0"
+description = "智能数仓建设平台 — 通用数据仓库建设系统"
+requires-python = ">=3.10"
+dependencies = [
+    "dbt-core>=1.8",
+    "dbt-duckdb",
+    "pyyaml",
+    "pyhive",
+    "pymysql",
+]
+
+[project.scripts]
+dbt-platform = "dbt_platform.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["dbt_platform*"]
+
+[tool.setuptools.package-data]
+"dbt_platform" = [
+    "data/templates/**/*",
+    "data/agents/**/*",
+]

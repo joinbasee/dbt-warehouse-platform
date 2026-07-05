@@ -1,0 +1,15 @@
+# PEP 数仓 dbt 依赖 — CI / 新环境初始化
+# 与 .venv 版本一致，安装: pip install -r requirements.txt
+
+dbt-core==1.11.9
+dbt-duckdb==1.10.1
+dbt-spark==1.10.1
+dbt-oceanbase==1.0.1
+duckdb==1.5.2
+
+# ── BI 看板引擎 ──
+pyyaml>=6.0                # YAML 配置解析（必需）
+
+# ── 数据库直连（可选，BI 看板使用） ──
+# pyhive>=0.7.0            # Hive 直连查询
+# pymysql>=1.1.0           # OceanBase/MySQL 直连查询

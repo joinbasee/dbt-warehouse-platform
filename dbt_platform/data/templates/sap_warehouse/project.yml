@@ -1,0 +1,45 @@
+# SAP ECC → Hive + OceanBase 项目模板
+# 新项目初始化: dbt-platform init my_project --adapter sap_ecc
+# 将从本模板复制骨架
+
+project:
+  name: "My Data Warehouse"
+  description: ""
+  version: "0.1.0"
+
+source:
+  adapter: sap_ecc
+
+warehouse:
+  primary:
+    adapter: hive_spark
+    schema: dw
+  output:
+    adapter: oceanbase_mysql
+    schema: ads
+
+layers:
+  - name: ODS
+    code: ods
+    schema: ods
+    read_only: true
+  - name: DWD
+    code: dwd
+    schema: dw
+    materialized: table
+  - name: DWS
+    code: dws
+    schema: dw
+    materialized: table
+  - name: DIM
+    code: dim
+    schema: dim
+    materialized: table
+  - name: ADS
+    code: ads
+    schema: ads
+    materialized: table
+    dual_write: oceanbase_mysql
+
+domains: []
+scenarios: []

@@ -1,0 +1,32 @@
+name: '{{ PROJECT_NAME }}'
+version: '1.0.0'
+config-version: 2
+
+profile: '{{ PROJECT_NAME }}'
+
+model-paths: ["models"]
+seed-paths: ["seeds"]
+test-paths: ["tests"]
+macro-paths: ["macros"]
+snapshot-paths: ["snapshots"]
+
+seeds:
+  '{{ PROJECT_NAME }}':
+    +schema: ods
+
+models:
+  '{{ PROJECT_NAME }}':
+    dim:
+      +schema: "{{ DIM_SCHEMA | default('dim') }}"
+      +materialized: table
+    dwd:
+      +schema: "{{ DW_SCHEMA | default('dw') }}"
+      +materialized: table
+    dws:
+      +schema: "{{ DW_SCHEMA | default('dw') }}"
+      +materialized: table
+      intermediate:
+        +materialized: table
+    ads:
+      +schema: "{{ ADS_SCHEMA | default('ads') }}"
+      +materialized: table

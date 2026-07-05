@@ -1,0 +1,83 @@
+# ============================================================
+# 智能数仓建设平台 — 项目配置
+# ============================================================
+# 编辑本文件，填入你的源系统和业务域。
+# 引擎层代码零业务耦合，所有业务信息来自本文件。
+
+project:
+  name: "我的数据仓库"
+  description: ""
+  version: "0.1.0"
+
+# ── 源系统 ──
+source:
+  adapter: sap_ecc                          # sap_ecc | mysql | oracle_ebs | custom
+
+# ── 目标数仓 ──
+warehouse:
+  primary:
+    adapter: hive_spark
+    schema: dw
+  output:
+    adapter: oceanbase_mysql
+    schema: ads
+
+# ── 数据分层 ──
+layers:
+  - name: ODS
+    code: ods
+    schema: ods
+    read_only: true
+    description: "原始数据层，只读"
+  - name: DWD
+    code: dwd
+    schema: dw
+    materialized: table
+    description: "明细数据层，1:1清洗"
+  - name: DWS
+    code: dws
+    schema: dw
+    materialized: table
+    description: "服务数据层，多表JOIN+业务逻辑"
+  - name: DIM
+    code: dim
+    schema: dim
+    materialized: table
+    description: "共享维度层"
+  - name: ADS
+    code: ads
+    schema: ads
+    materialized: table
+    description: "应用数据层，BI就绪"
+
+# ── 业务域 ──
+domains:
+  - code: order
+    name: 订单域
+    description: "销售订单、开票、交货"
+
+# ── 业务场景 ──
+scenarios: []
+
+# ── BI 输出 ──
+bi:
+  tool: finereport
+  output_database: oceanbase_mysql
+
+# ── 连接信息 ──
+connections:
+  dev:
+    adapter: duckdb
+    path: "{{ env_var('DUCKDB_PATH', 'warehouse.duckdb') }}"
+  hive:
+    adapter: spark_thrift
+    host: "{{ env_var('HIVE_HOST') }}"
+    port: "{{ env_var('HIVE_PORT', '10000') }}"
+    user: "{{ env_var('HIVE_USER') }}"
+    password: "{{ env_var('HIVE_PASSWORD') }}"
+  oceanbase:
+    adapter: obmysql
+    host: "{{ env_var('OB_HOST') }}"
+    port: "{{ env_var('OB_PORT', '2881') }}"
+    user: "{{ env_var('OB_USER') }}"
+    password: "{{ env_var('OB_PASSWORD') }}"
